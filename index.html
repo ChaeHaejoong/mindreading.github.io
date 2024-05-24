@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="thinking.webp">
+    <title>숫자맞추기 독심술</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            height: 100vh;
+            /* Viewport height for proper centering */
+        }
+
+        .thinkingImg {
+            width: 300px;
+            height: 300px;
+            animation: rotate_image 2s linear;
+            margin-top: 2000px;
+            transition: margin-top 2s linear;
+        }
+
+        @keyframes rotate_image {
+            100% {
+                transform: rotate(1080deg);
+            }
+        }
+    </style>
+    <script>
+      let number = prompt('숫자를 하나 상상해보렴!')
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <img id="thinkingImg" src="thinking.webp" class="thinkingImg"><br>
+        <h1 style="display: none;">너가 상상한 숫자는 <span class="dots">.</span></h1>
+        <center><h1><span class="number"></span></h1></center>
+    </div>
+
+    <script>
+        window.onload = function () {
+            document.querySelector('.thinkingImg').style.marginTop = '-200px';
+            document.querySelector('.number').style.color = 'red';
+            document.querySelector('.number').innerHTML = `${number} !`
+            document.querySelector('.number').style.visibility = 'hidden';
+            setTimeout(() => {
+                document.querySelector('h1').style.display = 'block';
+            }, 2000);
+        };
+
+        let dotCount = 1;
+        let cycleCount = 0;
+        const maxCycles = 5;
+        const interval = setInterval(() => {
+            const dotsElement = document.querySelector(".dots");
+            dotCount = (dotCount % 3) + 1;
+            dotsElement.innerHTML = ".".repeat(dotCount);
+
+            if (dotCount === 3) {
+                cycleCount++;
+                if (cycleCount === maxCycles) {
+                    clearInterval(interval);
+                    const imgElement = document.getElementById('thinkingImg');
+                    imgElement.src = 'notice.jpg';
+                    document.querySelector('.number').style.visibility = 'visible';
+                }
+            }
+        }, 500);2
+    </script>
+</body>
+
+</html>
